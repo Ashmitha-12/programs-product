@@ -81,6 +81,7 @@ class dll:
         while(t1!=None):
              print(t1.data,end="->")
              t1=t1.next
+        print()
     def swapsides(self):
         t=self.head
         t1=self.head.next
@@ -99,17 +100,58 @@ class dll:
         t=self.head
         while(t!=None):
             print(t.data,end="->")
-            t=t.next  
+            t=t.next
+        print()
+    def validparanthesis(self):
+        s=[]
+        tp=self.head
+        c=0
+        while tp:
+            if tp.data in '([{':
+                s.append(tp.data)
+            elif tp.data==')' and s[-1]=='(' or tp.data==']' and s[-1]=='['  or tp.data=='}' and s[-1]=='{':
+                s.pop()
+            else:
+                return c
+            tp=tp.next
+            c+=1
+        if len(s)==0:
+            return -1
+    print()
+    def evenoddsum(self,t,es,os):
+        if(t==None):
+            return abs(es-os)
+        if (t.data%2==0):
+            es=es+t.data
+        else:
+            os=os+t.data
+        return self.evenoddsum(t.next,es,os)
+    def primecount(self,t,count):
+        if (t==None):
+            return count
+        def prime(s,n):
+            if(s>(n//2)+1):
+                return 1
+            if(n%s==0):
+                return 0
+            return prime(s+1,n)
+        if(prime(2,t.data)):
+            count=count+1
+        return self.primecount(t.next,count)
+            
 l1=dll()
-l1.addback(10)
-l1.addback(20)
-l1.addback(30)
-l1.addback(40)
-l1.addback(50)
-l1.addback(60)
+l1.addback(1)
+l1.addback(2)
+l1.addback(3)
+l1.addback(4)
+l1.addback(5)
+l1.addback(7)
 l1.display()
 print(l1.search(200))
-print(l1.checklen())
+print(l1.checklen()) 
 print(l1.palindrome())
 l1.swaphalf()
-l1.swapsides()
+#print(l1.evenoddsum())
+#print(l1.validparanthesis())
+print(l1.evenoddsum(l1.head,0,0))
+print(l1.primecount(l1.head,0))
